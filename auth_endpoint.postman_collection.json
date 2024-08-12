@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "6a52426c-5f73-434b-8d19-55ff785b5c50",
+		"name": "auth_endpoint",
+		"description": "StartFragment\n\n## Overview\n\nThis document provides a comprehensive guide for testing the API endpoints of the project using Postman. It includes details on how to test user signup, OTP validation, and login functionalities.\n\n## Collection\n\nThe Postman Collection is organized into the following requests:\n\n1. **Signup Request**\n    \n2. **Validate OTP Request**\n    \n3. **Login Request**\n    \n\nEndFragment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33374512"
+	},
+	"item": [
+		{
+			"name": "InitialView",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phone",
+							"value": "09035002055",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						""
+					]
+				},
+				"description": "this endpoint check if the user is already signed up or its a new user  \nif the user is a new arival we should send a sms to phone number and pass him to otp validate page and if not we should redirect the user to the login page\n\nif the user try to catch the sms for more than 3 time we will block his/her id for 1 hour"
+			},
+			"response": []
+		},
+		{
+			"name": "otp_validation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phone",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "otp",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/validate-otp/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"validate-otp",
+						""
+					]
+				},
+				"description": "user pass the phone number and the otp code and we change the otp_validate field in the MyUser model to True  \nif the user give us some wrong information for 3 time we will block his/her id for 1 hour"
+			},
+			"response": []
+		},
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "first_name",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "last_name",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "if user is in this stage he/she activate his/her account by giving the write otp and now its time to take him some additional info about his account for the user persona that we want and ofcourse the password\n\nif everything work well we will return the refresh token and the access token to the front  \nif user try to give us some wrong information or duplicate information we will block his/her account for 1 hour"
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phone",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/login/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				},
+				"description": "user give us the phone number abd the password and we return the access token and refresh token to the frontend\n\nif user try to give us some wrong information we will block the user for 1 hour"
+			},
+			"response": []
+		}
+	]
+}

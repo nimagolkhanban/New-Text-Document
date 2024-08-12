@@ -1,0 +1,17 @@
+import re
+
+def get_ip(request):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        return ip
+    
+
+
+def validate_phone_number(phone):
+    pattern = r'^09\d{9}$'
+    if re.match(pattern, phone):
+        return True
+    return False
